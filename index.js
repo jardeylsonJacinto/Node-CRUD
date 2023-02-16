@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const sequelize = require('sequelize');
-const User = require('./models/userModel');
+const sequelize = require('./util/database');
+const User = require('./models/user');
 
 const app = express();
 
@@ -12,29 +12,29 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
-})
-
-// test router
-app.get('/', (req, res, next) => {
-  res.send('hello world!!');
 });
 
-// CRUD Routes /users
+//test route
+app.get('/', (req, res, next) => {
+  res.send('Hello World');
+});
+
+//CRUD routes
 app.use('/users', require('./routes/users'));
 
-// Error handling
+//error handling
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
-  res.status(status).json({ message: message});
+  res.status(status).json({ message: message });
 });
 
-// sync database
+//sync database
 sequelize
   .sync()
   .then(result => {
-    console.log('Database Connected!');
-    app.listen(3333);
+    console.log("Database connected");
+    app.listen(3000);
   })
-  .catch(e => console.log(e));
+  .catch(err => console.log(err));
