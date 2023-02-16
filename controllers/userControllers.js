@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/userModel');
 
 
 // CRUD controllers
@@ -13,7 +13,7 @@ exports.getUsers = (req, res, next) => {
 }
 
 // get user by id
-exports.getUsers = (req,res, next) => {
+exports.getUser = (req,res, next) => {
   const userId = req.params.userId;
   User.findByPk(userId)
     .then(user => {
