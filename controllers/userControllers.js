@@ -33,7 +33,7 @@ exports.createUser = (req, res, next) => {
     name: name,
     email: email
   })
-  .then(resul => {
+  .then(result => {
     console.log('Created User');
     res.status(201).json({
       message:'User created successfully!',
